@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Week Dashboard</title>
+    <style>
+        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .dashboard { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; max-width: 400px; width: 90%; }
+        .header { grid-column: span 2; text-align: center; margin-bottom: 20px; }
+        h1 { color: #333; margin: 0; }
+        p { color: #666; margin-top: 5px; }
+        
+        .day-card {
+            background: white; padding: 20px; border-radius: 20px; text-decoration: none;
+            color: #333; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s; border-bottom: 4px solid #ddd;
+        }
+        .day-card:hover { transform: translateY(-5px); }
+        
+        /* Unique colors for buttons */
+        .rose { border-color: #ff3366; }
+        .propose { border-color: #ffd700; }
+        .choco { border-color: #5d4037; }
+        .teddy { border-color: #81d4fa; }
+        .promise { border-color: #4caf50; }
+        .hug { border-color: #ff9800; }
+        .kiss { border-color: #e91e63; }
+        .val { grid-column: span 2; background: #ff3366; color: white; border: none; }
+        
+        .icon { font-size: 2rem; display: block; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="header">
+            <h1>My Love Timeline</h1>
+            <p>Choose a day to open its website</p>
+        </div>
+        <a href="rose.html" class="day-card rose"><span class="icon">🌹</span>Rose</a>
+        <a href="propose.html" class="day-card propose"><span class="icon">💍</span>Propose</a>
+        <a href="chocolate.html" class="day-card choco"><span class="icon">🍫</span>Choco</a>
+        <a href="teddy.html" class="day-card teddy"><span class="icon">🧸</span>Teddy</a>
+        <a href="promise.html" class="day-card promise"><span class="icon">🤞</span>Promise</a>
+        <a href="hug.html" class="day-card hug"><span class="icon">🤗</span>Hug</a>
+        <a href="kiss.html" class="day-card kiss"><span class="icon">💋</span>Kiss</a>
+        <a href="valentine.html" class="day-card val"><span class="icon">❤️</span>VALENTINE'S DAY</a>
+    </div>
+</body>
+</html>
