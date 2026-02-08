@@ -9,18 +9,14 @@
 
         :root {
             --bg-deep: #050510;
-            --bg-blue: #0a0a2e;
-            --accent-blue: #00d4ff;
-            --gold: #ffd700;
-            --glass: rgba(10, 10, 40, 0.6);
-            --neon-glow: 0 0 20px rgba(0, 212, 255, 0.6);
+            --glass: rgba(20, 20, 50, 0.7);
+            --neon-blue: #00d4ff;
         }
 
         body {
             margin: 0;
             padding: 0;
             height: 100vh;
-            /* Deep Space Gradient */
             background: radial-gradient(circle at bottom, #1b2735 0%, #090a0f 100%);
             font-family: 'Montserrat', sans-serif;
             color: white;
@@ -38,6 +34,7 @@
             border-radius: 50%;
             animation: twinkle var(--duration) ease-in-out infinite;
             opacity: var(--opacity);
+            z-index: 0;
         }
 
         @keyframes twinkle {
@@ -45,64 +42,53 @@
             50% { transform: scale(1.5); opacity: 0.3; }
         }
 
-        /* --- MAIN CARD --- */
+        /* --- PROPOSAL CARD --- */
         .card-container {
             position: relative;
             z-index: 10;
             perspective: 1000px;
+            transition: opacity 1s ease, transform 1s ease;
         }
 
         .glass-panel {
             background: var(--glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 40px rgba(0, 100, 255, 0.2);
-            padding: 50px 40px;
+            box-shadow: 0 0 50px rgba(0, 150, 255, 0.3);
+            padding: 40px;
             border-radius: 20px;
             text-align: center;
-            max-width: 450px;
+            max-width: 400px;
             width: 90vw;
-            transition: all 0.5s ease;
         }
 
         h1 {
             font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
             background: linear-gradient(to right, #fff, #a5f3fc);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            text-shadow: 0 0 10px rgba(165, 243, 252, 0.5);
-        }
-
-        .ring-visual {
-            width: 150px;
-            height: 150px;
-            margin: 20px auto;
-            position: relative;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
 
         .ring-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            width: 140px;
+            height: 140px;
             border-radius: 50%;
-            border: 2px solid rgba(255,255,255,0.2);
+            border: 3px solid rgba(255,255,255,0.2);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+            object-fit: cover;
+            margin-bottom: 20px;
         }
 
         .proposal-text {
-            font-size: 1.1rem;
+            font-size: 1rem;
             line-height: 1.6;
             margin-bottom: 30px;
-            color: #d1d5db;
+            color: #e0e7ff;
         }
 
         /* --- BUTTONS --- */
@@ -111,81 +97,76 @@
             justify-content: center;
             gap: 20px;
             position: relative;
-            height: 60px; /* Space for moving button */
+            height: 50px;
         }
 
         .btn {
-            padding: 12px 30px;
+            padding: 12px 35px;
             border-radius: 50px;
             border: none;
             font-weight: bold;
             font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            transition: 0.3s;
         }
 
         .btn-yes {
             background: linear-gradient(135deg, #00c6ff, #0072ff);
             color: white;
-            box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
+            box-shadow: 0 0 20px rgba(0, 198, 255, 0.6);
         }
-        
-        .btn-yes:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px rgba(0, 198, 255, 0.8);
-        }
+
+        .btn-yes:hover { transform: scale(1.1); }
 
         .btn-no {
             background: transparent;
             border: 2px solid #ff4d4d;
             color: #ff4d4d;
-            position: relative; /* Needed for movement */
         }
 
-        /* --- SUCCESS SCREEN --- */
-        #success-screen {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 20;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .couple-names {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            color: #ffd700;
-            text-shadow: 0 0 20px #ffd700;
-            animation: zoomIn 1s ease;
-        }
-
-        .final-msg {
-            font-size: 1.2rem;
-            margin-top: 20px;
-            color: #fff;
-        }
-
-        /* Fireworks Particle */
-        .firework {
+        /* --- FIREWORKS CANVAS --- */
+        #fireworks-canvas {
             position: absolute;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            animation: explode 1s ease-out forwards;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5; /* Behind text, above background */
+            pointer-events: none;
+            display: none; /* Hidden initially */
         }
 
-        @keyframes explode {
-            0% { transform: translate(0, 0); opacity: 1; }
-            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+        /* --- SUCCESS TEXT --- */
+        #success-msg {
+            display: none; /* Hidden initially */
+            position: absolute;
+            z-index: 20;
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
 
-        @keyframes zoomIn {
+        .final-title {
+            font-family: 'Cinzel', serif;
+            font-size: 3.5rem;
+            color: #ffd700;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            margin: 0;
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .final-subtitle {
+            font-size: 1.2rem;
+            margin-top: 15px;
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        @keyframes popIn {
             from { transform: scale(0); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
@@ -194,128 +175,175 @@
 </head>
 <body>
 
-    <!-- Stars Container -->
+    <!-- Stars Background -->
     <div id="stars"></div>
 
-    <!-- Screen 1: The Proposal -->
+    <!-- Fireworks Canvas Layer -->
+    <canvas id="fireworks-canvas"></canvas>
+
+    <!-- Screen 1: The Question -->
     <div class="card-container" id="proposal-card">
         <div class="glass-panel">
-            <h1 id="main-title">Propose Day</h1>
+            <h1>Propose Day</h1>
             
-            <div class="ring-visual">
-                <!-- Replace with a picture of a ring or you two -->
-                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600" alt="Ring" class="ring-img">
-            </div>
+            <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600" alt="Ring" class="ring-img">
 
             <p class="proposal-text">
                 From strangers to friends, from friends to soulmates.<br>
-                The universe conspired to bring us together.
-                <br><br>
-                <strong>Will you be mine forever?</strong>
+                The universe conspired to bring us together.<br>
+                <b>
+                The stars are beautiful,<br>but they have nothing on your eyes.
+                <br><br></b>
+                <strong>Will you be my forever?</strong>
             </p>
 
             <div class="btn-group">
-                <button class="btn btn-yes" onclick="sheSaidYes()">YES!</button>
-                <button class="btn btn-no" id="btnNo" onmouseover="moveButton()">NO</button>
+                <button class="btn btn-yes" onclick="startCelebration()">YES!</button>
+                <button class="btn btn-no" id="btnNo" onmouseover="moveButton()" ontouchstart="moveButton()">NO</button>
             </div>
         </div>
     </div>
 
-    <!-- Screen 2: The Celebration -->
-    <div id="success-screen">
-        <div class="couple-names">WE ARE OFFICIAL! 💍</div>
-        <p class="final-msg">I promise to love you until the stars burn out.</p>
+    <!-- Screen 2: Success Message -->
+    <div id="success-msg">
+        <div class="final-title">SHE SAID YES! 💍</div>
+        <div class="final-subtitle">My heart is officially yours forever.</div>
     </div>
 
     <script>
-        // 1. Generate Starry Background
+        // --- 1. Starry Background Logic ---
         const starContainer = document.getElementById('stars');
-        const starCount = 100;
-
-        for(let i=0; i<starCount; i++) {
+        for(let i=0; i<100; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
-            const x = Math.random() * 100;
-            const y = Math.random() * 100;
-            const size = Math.random() * 3;
-            const duration = Math.random() * 3 + 2;
-            
-            star.style.left = `${x}vw`;
-            star.style.top = `${y}vh`;
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.setProperty('--duration', `${duration}s`);
+            star.style.left = `${Math.random()*100}vw`;
+            star.style.top = `${Math.random()*100}vh`;
+            star.style.width = `${Math.random()*3}px`;
+            star.style.height = star.style.width;
+            star.style.setProperty('--duration', `${Math.random()*3+2}s`);
             star.style.setProperty('--opacity', Math.random());
-            
             starContainer.appendChild(star);
         }
 
-        // 2. The Running "NO" Button
+        // --- 2. Runaway Button Logic ---
         const btnNo = document.getElementById('btnNo');
-        
         function moveButton() {
-            const container = document.querySelector('.glass-panel');
-            const containerRect = container.getBoundingClientRect();
-            const btnRect = btnNo.getBoundingClientRect();
-            
-            // Calculate random position within the card limits
-            const newX = Math.random() * (containerRect.width - btnRect.width - 40) - (containerRect.width/2 - btnRect.width/2);
-            const newY = Math.random() * (containerRect.height - btnRect.height - 40) - (containerRect.height/2 - btnRect.height/2);
-            
-            btnNo.style.transform = `translate(${newX}px, ${newY}px)`;
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            btnNo.style.position = 'fixed'; // Break out of container
+            btnNo.style.left = `${x}px`;
+            btnNo.style.top = `${y}px`;
         }
-        
-        // Also add touchstart for mobile users so they can't tap it easily
-        btnNo.addEventListener('touchstart', (e) => {
-            e.preventDefault(); // prevent click
-            moveButton();
-        });
 
-        // 3. She Said YES - Fireworks Function
-        function sheSaidYes() {
+        // --- 3. Celebration Logic ---
+        function startCelebration() {
+            // Hide Proposal Card
             const card = document.getElementById('proposal-card');
-            const success = document.getElementById('success-screen');
-            
-            // Hide card
             card.style.opacity = '0';
+            card.style.transform = 'scale(0.8)';
+            
             setTimeout(() => {
                 card.style.display = 'none';
-                success.style.display = 'flex';
                 
-                // Launch fireworks loop
-                setInterval(createFirework, 100);
-            }, 500);
+                // Show Success Text
+                document.getElementById('success-msg').style.display = 'flex';
+                
+                // Start Fireworks
+                const canvas = document.getElementById('fireworks-canvas');
+                canvas.style.display = 'block';
+                initFireworks();
+
+            }, 800);
         }
 
-        // 4. Simple Fireworks Logic
-        function createFirework() {
-            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
-            const x = Math.random() * window.innerWidth;
-            const y = Math.random() * window.innerHeight;
-            const color = colors[Math.floor(Math.random() * colors.length)];
+        // --- 4. REALISTIC CANVAS FIREWORKS ENGINE ---
+        function initFireworks() {
+            const canvas = document.getElementById('fireworks-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
 
-            // Create 20 particles per explosion
-            for(let i=0; i<20; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('firework');
-                particle.style.left = x + 'px';
-                particle.style.top = y + 'px';
-                particle.style.backgroundColor = color;
-                
-                // Random direction
+            let particles = [];
+            
+            // Resize listener
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
+            function Particle(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                // Random velocity in all directions
                 const angle = Math.random() * Math.PI * 2;
-                const velocity = Math.random() * 100 + 50;
-                const tx = Math.cos(angle) * velocity + 'px';
-                const ty = Math.sin(angle) * velocity + 'px';
-                
-                particle.style.setProperty('--x', tx);
-                particle.style.setProperty('--y', ty);
-                
-                document.body.appendChild(particle);
-                
-                // Remove after animation
-                setTimeout(() => particle.remove(), 1000);
+                const speed = Math.random() * 5 + 2;
+                this.vx = Math.cos(angle) * speed;
+                this.vy = Math.sin(angle) * speed;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.02 + 0.01;
+                this.gravity = 0.05;
+
+                this.update = function() {
+                    this.vx *= 0.95; // friction
+                    this.vy *= 0.95;
+                    this.vy += this.gravity;
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.alpha -= this.decay;
+                }
+
+                this.draw = function() {
+                    ctx.globalAlpha = this.alpha;
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             }
+
+            function createFirework() {
+                const x = Math.random() * canvas.width;
+                const y = Math.random() * (canvas.height / 2); // Explode in top half
+                const colors = ['#ff0055', '#ff9900', '#ffff00', '#00ff00', '#00ccff', '#cc00ff', '#ffffff'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Create 50 particles per explosion
+                for (let i = 0; i < 60; i++) {
+                    particles.push(new Particle(x, y, color));
+                }
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Trail effect (fades previous frames slightly instead of clearing completely)
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.15)'; 
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                // Randomly launch fireworks
+                if (Math.random() < 0.05) { // 5% chance per frame
+                    createFirework();
+                }
+
+                // Update and draw particles
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+
+                    // Remove faded particles
+                    if (particles[i].alpha <= 0) {
+                        particles.splice(i, 1);
+                        i--;
+                    }
+                }
+            }
+            
+            // Start the loop
+            animate();
+            // Initial burst
+            createFirework();
+            createFirework();
         }
     </script>
 </body>
