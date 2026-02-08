@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be Mine?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;600&display=swap');
+
+        :root {
+            --bg-deep: #050510;
+            --bg-blue: #0a0a2e;
+            --accent-blue: #00d4ff;
+            --gold: #ffd700;
+            --glass: rgba(10, 10, 40, 0.6);
+            --neon-glow: 0 0 20px rgba(0, 212, 255, 0.6);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            /* Deep Space Gradient */
+            background: radial-gradient(circle at bottom, #1b2735 0%, #090a0f 100%);
+            font-family: 'Montserrat', sans-serif;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- STARRY BACKGROUND --- */
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: var(--opacity);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.5); opacity: 0.3; }
+        }
+
+        /* --- MAIN CARD --- */
+        .card-container {
+            position: relative;
+            z-index: 10;
+            perspective: 1000px;
+        }
+
+        .glass-panel {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 40px rgba(0, 100, 255, 0.2);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 450px;
+            width: 90vw;
+            transition: all 0.5s ease;
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #fff, #a5f3fc);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(165, 243, 252, 0.5);
+        }
+
+        .ring-visual {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            position: relative;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1), transparent);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ring-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        .proposal-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #d1d5db;
+        }
+
+        /* --- BUTTONS --- */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            height: 60px; /* Space for moving button */
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 50px;
+            border: none;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: white;
+            box-shadow: 0 0 15px rgba(0, 198, 255, 0.5);
+        }
+        
+        .btn-yes:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 198, 255, 0.8);
+        }
+
+        .btn-no {
+            background: transparent;
+            border: 2px solid #ff4d4d;
+            color: #ff4d4d;
+            position: relative; /* Needed for movement */
+        }
+
+        /* --- SUCCESS SCREEN --- */
+        #success-screen {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 20;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .couple-names {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: #ffd700;
+            text-shadow: 0 0 20px #ffd700;
+            animation: zoomIn 1s ease;
+        }
+
+        .final-msg {
+            font-size: 1.2rem;
+            margin-top: 20px;
+            color: #fff;
+        }
+
+        /* Fireworks Particle */
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+        }
+
+        @keyframes explode {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Stars Container -->
+    <div id="stars"></div>
+
+    <!-- Screen 1: The Proposal -->
+    <div class="card-container" id="proposal-card">
+        <div class="glass-panel">
+            <h1 id="main-title">Propose Day</h1>
+            
+            <div class="ring-visual">
+                <!-- Replace with a picture of a ring or you two -->
+                <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=600" alt="Ring" class="ring-img">
+            </div>
+
+            <p class="proposal-text">
+                From strangers to friends, from friends to soulmates.<br>
+                The universe conspired to bring us together.
+                <br><br>
+                <strong>Will you be mine forever?</strong>
+            </p>
+
+            <div class="btn-group">
+                <button class="btn btn-yes" onclick="sheSaidYes()">YES!</button>
+                <button class="btn btn-no" id="btnNo" onmouseover="moveButton()">NO</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Screen 2: The Celebration -->
+    <div id="success-screen">
+        <div class="couple-names">WE ARE OFFICIAL! 💍</div>
+        <p class="final-msg">I promise to love you until the stars burn out.</p>
+    </div>
+
+    <script>
+        // 1. Generate Starry Background
+        const starContainer = document.getElementById('stars');
+        const starCount = 100;
+
+        for(let i=0; i<starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const x = Math.random() * 100;
+            const y = Math.random() * 100;
+            const size = Math.random() * 3;
+            const duration = Math.random() * 3 + 2;
+            
+            star.style.left = `${x}vw`;
+            star.style.top = `${y}vh`;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.setProperty('--duration', `${duration}s`);
+            star.style.setProperty('--opacity', Math.random());
+            
+            starContainer.appendChild(star);
+        }
+
+        // 2. The Running "NO" Button
+        const btnNo = document.getElementById('btnNo');
+        
+        function moveButton() {
+            const container = document.querySelector('.glass-panel');
+            const containerRect = container.getBoundingClientRect();
+            const btnRect = btnNo.getBoundingClientRect();
+            
+            // Calculate random position within the card limits
+            const newX = Math.random() * (containerRect.width - btnRect.width - 40) - (containerRect.width/2 - btnRect.width/2);
+            const newY = Math.random() * (containerRect.height - btnRect.height - 40) - (containerRect.height/2 - btnRect.height/2);
+            
+            btnNo.style.transform = `translate(${newX}px, ${newY}px)`;
+        }
+        
+        // Also add touchstart for mobile users so they can't tap it easily
+        btnNo.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // prevent click
+            moveButton();
+        });
+
+        // 3. She Said YES - Fireworks Function
+        function sheSaidYes() {
+            const card = document.getElementById('proposal-card');
+            const success = document.getElementById('success-screen');
+            
+            // Hide card
+            card.style.opacity = '0';
+            setTimeout(() => {
+                card.style.display = 'none';
+                success.style.display = 'flex';
+                
+                // Launch fireworks loop
+                setInterval(createFirework, 100);
+            }, 500);
+        }
+
+        // 4. Simple Fireworks Logic
+        function createFirework() {
+            const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff'];
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            // Create 20 particles per explosion
+            for(let i=0; i<20; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('firework');
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.backgroundColor = color;
+                
+                // Random direction
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = Math.random() * 100 + 50;
+                const tx = Math.cos(angle) * velocity + 'px';
+                const ty = Math.sin(angle) * velocity + 'px';
+                
+                particle.style.setProperty('--x', tx);
+                particle.style.setProperty('--y', ty);
+                
+                document.body.appendChild(particle);
+                
+                // Remove after animation
+                setTimeout(() => particle.remove(), 1000);
+            }
+        }
+    </script>
+</body>
+</html>
