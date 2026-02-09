@@ -33,6 +33,8 @@ canvas{
 #sparkles, #floatingMsgs{
     position:fixed; inset:0; z-index:3; pointer-events:none;
 }
+
+/* GOLDEN SPARKLES */
 #sparkles span{
     position:absolute;
     width:6px;height:6px;
@@ -45,17 +47,22 @@ canvas{
     0%,100%{opacity:0;transform:scale(.4);}
     50%{opacity:1;transform:scale(1);}
 }
+
+/* FLOATING LOVE MESSAGES / EMOJIS */
 .floating-emoji{
     position:absolute;
     font-size:25px;
     opacity:0.7;
     animation:float linear infinite;
     user-select:none;
+    color:white; /* WHITE TEXT */
+    text-shadow:0 0 8px #ffd700; /* GOLDEN GLOW */
 }
 @keyframes float{
     from {transform:translateY(110vh) rotate(0deg);}
     to {transform:translateY(-20vh) rotate(360deg);}
 }
+
 .page{
     position:absolute; inset:0;
     display:none;
@@ -67,6 +74,7 @@ canvas{
     padding:20px;
 }
 .page.active{display:flex;}
+
 .card{
     background:var(--cream);
     border-radius:20px;
@@ -83,6 +91,7 @@ canvas{
     border:3px solid var(--gold);
     margin-bottom:20px;
 }
+
 .btn{
     margin-top:25px;
     padding:15px 45px;
@@ -101,6 +110,7 @@ canvas{
     from{box-shadow:0 0 25px rgba(255,215,0,.7);}
     to{box-shadow:0 0 50px rgba(255,215,0,1);}
 }
+
 .title{
     font-family:'Dancing Script',cursive;
     font-size:3.2rem;
@@ -211,17 +221,12 @@ class Particle{
         this.vy=(Math.random()-.5)*8;
         this.alpha=1; this.color=color;
     }
-    update(){
-        this.x+=this.vx;
-        this.y+=this.vy;
-        this.alpha-=.01;
-    }
+    update(){this.x+=this.vx; this.y+=this.vy; this.alpha-=.01;}
     draw(){
         ctx.globalAlpha=this.alpha;
         ctx.beginPath();
         ctx.arc(this.x,this.y,2,0,Math.PI*2);
-        ctx.fillStyle=this.color;
-        ctx.fill();
+        ctx.fillStyle=this.color; ctx.fill();
     }
 }
 
@@ -257,6 +262,7 @@ function startLove(){
             clearInterval(i);
             document.getElementById("p2").classList.remove("active");
             document.getElementById("p3").classList.add("active");
+            floatingMessages(); // keep hearts floating
         }
     },1000);
 }
