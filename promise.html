@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Eternal Promise 💖</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gamja+Flower&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --blue:#a2d2ff; --pink:#ffafcc; --gold:#ffd700;
+    --hot:#ff0055; --paper:#fff9f0;
+}
+* {box-sizing:border-box;}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#000;font-family:'Gamja Flower',cursive;}
+#bg{position:fixed;inset:0;background:linear-gradient(120deg,var(--blue),var(--pink));transition:.8s;z-index:1;}
+canvas{position:fixed;inset:0;pointer-events:none;display:none;z-index:2;}
+#emojis{position:fixed;inset:0;pointer-events:none;z-index:3;}
+
+.emoji{position:absolute;animation:float linear infinite,sway ease-in-out infinite,glow ease-in-out infinite;opacity:.8;}
+@keyframes float{from{transform:translateY(110vh) rotate(0);} to{transform:translateY(-20vh) rotate(360deg);}}
+@keyframes sway{0%,100%{margin-left:0;}50%{margin-left:20px;}}
+@keyframes glow{0%,100%{opacity:.6;}50%{opacity:1;}}
+
+.page{position:absolute;inset:0;display:none;align-items:center;justify-content:center;text-align:center;z-index:10;opacity:0;transform:scale(.95);transition:.6s;}
+.page.active{display:flex;opacity:1;transform:scale(1);}
+
+.card{background:var(--paper);padding:30px;border-radius:30px;width:85%;max-width:360px;box-shadow:0 20px 50px rgba(0,0,0,.2);border:8px solid #fff;}
+img.main-img{width:100%;height:220px;object-fit:cover;border-radius:20px;margin-bottom:15px;}
+
+button{margin-top:15px;padding:14px 35px;border:none;border-radius:50px;font-size:1.4rem;font-family:'Gaegu',cursive;font-weight:bold;cursor:pointer;background:var(--blue);box-shadow:0 6px 0 #7fb9f0;}
+button:active{transform:translateY(4px);box-shadow:0 2px 0 #7fb9f0;}
+
+.title{font-family:'Dancing Script',cursive;font-size:3.2rem;background:linear-gradient(45deg,#fff,var(--gold),#fff,var(--pink));background-size:300%;-webkit-background-clip:text;color:transparent;animation:shine 3s linear infinite;}
+@keyframes shine{to{background-position:300%;}}
+
+.vault{margin:20px auto;padding:25px;border-radius:25px;background:rgba(255,255,255,.15);backdrop-filter:blur(15px);border:2px solid rgba(255,215,0,.5);max-width:400px;}
+.promise{color:white;font-size:1.3rem;margin:10px 0;text-shadow:0 2px 4px rgba(0,0,0,.5);}
+
+.heart{font-size:8rem;animation:beat .8s infinite alternate;filter:drop-shadow(0 0 30px var(--hot));}
+@keyframes beat{from{transform:scale(1);}to{transform:scale(1.15);}}
+#finalText{color:white;font-size:2.2rem;margin-top:25px;text-shadow:0 0 10px var(--hot);}
+
+.sound-btn{position:absolute;top:20px;right:20px;padding:10px 18px;font-size:1rem;background:rgba(255,255,255,.8);border-radius:50px;cursor:pointer;z-index:11;}
+
+@media(max-width:480px){.title{font-size:2.5rem;}#finalText{font-size:1.8rem;}}
+</style>
+</head>
+<body>
+
+<div id="bg"></div>
+<canvas id="glitter"></canvas>
+<div id="emojis"></div>
+
+<button class="sound-btn" id="muteBtn">🔊</button>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+    <div class="card">
+        <!-- Free image as example -->
+        <img class="main-img" src="promise.jpg" alt="Promise Image" />
+        <h1 style="color:#ff8fab;margin:0;">Promise Day 💖</h1>
+        <p>I have a very special promise for you…</p>
+        <button onclick="go2()">Seal the Promise 🔒</button>
+    </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+    <div>
+        <div class="title">Promised Forever</div>
+        <div class="vault">
+            <div class="promise">✔ Always stay by your side</div>
+            <div class="promise">✔ Protect your smile</div>
+            <div class="promise">✔ Be your strength</div>
+            <div class="promise">✔ Love you 3000 & more</div>
+        </div>
+        <button style="background:var(--gold)" onclick="go3()">Open My Heart 💖</button>
+    </div>
+</div>
+
+<div class="page" id="p3">
+    <div>
+        <div class="heart">💖</div>
+        <div id="finalText"></div>
+        <button onclick="location.reload()">Restart ✨</button>
+    </div>
+</div>
+
+<audio id="sparkleSfx" src="https://freesoundslibrary.com/wp-content/uploads/2024/04/sparkling-sound-effect.mp3"></audio>
+
+<script>
+const sparkleSfx = document.getElementById("sparkleSfx");
+let isMuted = false;
+const muteBtn = document.getElementById("muteBtn");
+muteBtn.onclick = () => {
+    isMuted = !isMuted;
+    muteBtn.innerText = isMuted ? "🔇" : "🔊";
+};
+
+function playSfx(){
+    if(!isMuted){
+        sparkleSfx.currentTime = 0;
+        sparkleSfx.play();
+    }
+}
+
+/* Page show */
+function show(id){
+    playSfx();
+    document.querySelectorAll('.page').forEach(p=>{
+        p.classList.remove('active'); p.style.display='none';
+    });
+    const el=document.getElementById(id);
+    el.style.display='flex';
+    requestAnimationFrame(()=>el.classList.add('active'));
+}
+
+function emojis(type){
+    document.getElementById('emojis').innerHTML = '';
+    let set = type==='cute'?['🌸','✨','☁️','🎀','🤙']:type==='gold'?['✨','💎','⭐','🌟','🤞']:['💖','💕','❤️','🥰','🌹'];
+    for(let i=0;i<40;i++){
+        let e=document.createElement('div');
+        e.className='emoji'; e.innerText=set[Math.floor(Math.random()*set.length)];
+        e.style.left=Math.random()*100+'vw';
+        e.style.fontSize=(20+Math.random()*25)+'px';
+        e.style.animationDuration=(5+Math.random()*5)+'s';
+        document.getElementById('emojis').appendChild(e);
+    }
+}
+
+/* Glitter */
+const canvas = document.getElementById("glitter");
+const ctx = canvas.getContext("2d");
+let particles=[];
+function startGlitter(){
+    canvas.style.display='block';
+    canvas.width=innerWidth; canvas.height=innerHeight;
+    particles=Array.from({length:150},()=>({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        s:Math.random()*2+1,
+        v:Math.random()*1.5+.5,
+        c:['#fff','#ffd700','#ffafcc'][Math.floor(Math.random()*3)]
+    }));
+    animate();
+}
+function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{p.y+=p.v; if(p.y>canvas.height)p.y=-10;
+        ctx.fillStyle=p.c; ctx.beginPath(); ctx.arc(p.x,p.y,p.s,0,Math.PI*2); ctx.fill();
+    });
+    requestAnimationFrame(animate);
+}
+
+/* Final typing */
+function typeText(){
+    const text="You are the best promise I ever made.\nHappy Promise Day, My Love!";
+    const el=document.getElementById("finalText");
+    el.innerHTML='';
+    let i=0; const t=setInterval(()=>{
+        el.innerHTML+= text[i]==='\n'?'<br>':text[i];
+        i++; if(i>=text.length)clearInterval(t);
+    },50);
+}
+
+/* Nav */
+function go2(){
+    show("p2");
+    document.getElementById("bg").style.background='radial-gradient(circle,#220011,#000)';
+    emojis("gold"); startGlitter();
+}
+function go3(){
+    show("p3");
+    document.getElementById("glitter").style.display='none';
+    document.getElementById("bg").style.background='radial-gradient(circle,#33001a,#000)';
+    emojis("heart"); typeText();
+}
+
+emojis("cute");
+</script>
+
+</body>
+</html>
