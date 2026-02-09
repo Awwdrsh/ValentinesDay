@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warm Hug Day! 🫂🧡</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gamja+Flower&family=Dancing+Script:wght@700&display=swap');
+
+        :root {
+            --warm-orange: #ffb347;
+            --soft-peach: #ffccbb;
+            --gold: #ffd700;
+            --heart-red: #ff4d6d;
+            --paper: #fffcf0;
+        }
+
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            overflow: hidden; font-family: 'Gamja Flower', cursive;
+            background-color: #000;
+        }
+
+        /* --- LAYERING SYSTEM --- */
+        #bg-color-layer {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1; transition: background 0.8s ease;
+            background: linear-gradient(135deg, var(--warm-orange) 0%, var(--soft-peach) 100%);
+        }
+
+        #glitterCanvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 2; pointer-events: none; display: none;
+        }
+
+        #emoji-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 3; pointer-events: none;
+        }
+
+        .floating-emoji {
+            position: absolute; opacity: 0.7;
+            animation: floatAnim linear infinite; user-select: none;
+        }
+
+        @keyframes floatAnim {
+            from { transform: translateY(110vh) rotate(0deg); }
+            to { transform: translateY(-20vh) rotate(360deg); }
+        }
+
+        #flash {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 1000; display: none; pointer-events: none;
+        }
+
+        .page {
+            width: 100%; height: 100vh; display: none;
+            flex-direction: column; align-items: center; justify-content: center;
+            position: absolute; top: 0; left: 0; text-align: center;
+            z-index: 10; background: transparent;
+        }
+
+        /* --- PAGE 1 --- */
+        #page1 { display: flex; }
+        .cute-card {
+            background: var(--paper); padding: 30px; border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15); width: 85%; max-width: 350px;
+            border: 8px solid white; transform: rotate(-1deg);
+        }
+        .img-frame {
+            width: 100%; height: 200px; border-radius: 20px;
+            overflow: hidden; margin-bottom: 20px;
+        }
+        .img-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+        .btn-main {
+            background: #ff8c42; color: white; border: none;
+            padding: 15px 35px; font-size: 1.5rem; border-radius: 50px;
+            cursor: pointer; font-family: 'Gaegu', cursive; font-weight: bold;
+            box-shadow: 0 6px 0 #d46a24; transition: 0.2s; margin-top: 15px;
+        }
+        .btn-main:active { transform: translateY(4px); box-shadow: 0 2px 0 #d46a24; }
+
+        /* --- PAGE 2 --- */
+        .glitter-title {
+            font-family: 'Dancing Script', cursive; font-size: 3.5rem;
+            background: linear-gradient(45deg, #fff, var(--gold), #fff, #ff8c42);
+            background-size: 300% auto; -webkit-background-clip: text;
+            background-clip: text; color: transparent;
+            animation: shine 3s linear infinite;
+        }
+        @keyframes shine { to { background-position: 300% center; } }
+
+        .vault {
+            background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 255, 255, 0.4); padding: 25px;
+            border-radius: 25px; width: 85%; max-width: 400px; margin-bottom: 20px;
+        }
+        .hug-item {
+            color: white; font-size: 1.3rem; margin: 12px 0;
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* --- PAGE 3 --- */
+        .cuddle-box {
+            font-size: 8rem; animation: squeeze 1.5s infinite ease-in-out;
+            filter: drop-shadow(0 0 30px var(--warm-orange));
+        }
+        @keyframes squeeze {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1, 0.9); } /* The Squeeze effect */
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-color-layer"></div>
+    <canvas id="glitterCanvas"></canvas>
+    <div id="emoji-bg"></div>
+    <div id="flash"></div>
+
+    <!-- PAGE 1: THE REQUEST -->
+    <div id="page1" class="page">
+        <div class="cute-card">
+            <div class="img-frame">
+                <!-- Reliable Warm Hug Image -->
+                <img src="https://i.pinimg.com/564x/21/57/eb/2157eb3446d78e985eb18e1b76de8646.jpg" alt="Warm Hug">
+            </div>
+            <h1 style="font-family:'Gaegu'; color:#d46a24; margin:0;">Hug Day</h1>
+            <p style="color:#666; font-size: 1.2rem;">I have a big virtual squeeze waiting for you!</p>
+            <button class="btn-main" onclick="toPage2()">Get A Hug 🤗</button>
+        </div>
+    </div>
+
+    <!-- PAGE 2: THE FLASHY HUG -->
+    <div id="page2" class="page">
+        <h2 class="glitter-title">Virtual Hug Sent!</h2>
+        <div class="vault">
+            <div class="hug-item">🧡 A hug to make you feel safe.</div>
+            <div class="hug-item">🧡 A hug to take away your stress.</div>
+            <div class="hug-item">🧡 A hug to show how much I care.</div>
+            <div class="hug-item">🧡 A big squeeze just for you!</div>
+        </div>
+        <button class="btn-main" style="background:var(--gold); color:#000; box-shadow:0 6px 0 #b89b00;" onclick="toPage3()">Feel My Love 🫂</button>
+    </div>
+
+    <!-- PAGE 3: THE MESSAGE -->
+    <div id="page3" class="page">
+        <div class="cuddle-box">🫂</div>
+        <div style="color:white; font-size: 2.2rem; margin-top: 30px; text-shadow: 0 0 10px var(--warm-orange);">
+            Distance means nothing <br> when someone means everything. <br>
+            <span style="font-size: 1.5rem; color: var(--soft-peach);">Happy Hug Day, My Favorite Person!</span>
+        </div>
+        <button class="btn-main" onclick="location.reload()">Restart Squeeze ✨</button>
+    </div>
+
+    <script>
+        const colorLayer = document.getElementById('bg-color-layer');
+
+        function initEmojis(type) {
+            const container = document.getElementById('emoji-bg');
+            container.innerHTML = ''; 
+            let emojiSet = (type === 'hug') ? ['🤗', '🫂', '🧡', '✨', '☁️'] : 
+                           (type === 'gold') ? ['✨', '💎', '🫂', '⭐', '🔥'] : 
+                                               ['🫂', '❤️', '🧡', '🥰', '🧸'];
+
+            for (let i = 0; i < 40; i++) {
+                const el = document.createElement('div');
+                el.className = 'floating-emoji';
+                el.innerText = emojiSet[Math.floor(Math.random() * emojiSet.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.fontSize = (Math.random() * 25 + 20) + 'px';
+                el.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                container.appendChild(el);
+            }
+        }
+
+        function triggerFlash(callback) {
+            const flash = document.getElementById('flash');
+            flash.style.display = 'block';
+            flash.animate([{opacity: 0}, {opacity: 1}, {opacity: 0}], {duration: 800})
+            .onfinish = () => { flash.style.display = 'none'; callback(); };
+        }
+
+        function toPage2() {
+            triggerFlash(() => {
+                document.getElementById('page1').style.display = 'none';
+                document.getElementById('page2').style.display = 'flex';
+                document.getElementById('glitterCanvas').style.display = 'block';
+                colorLayer.style.background = 'radial-gradient(circle, #4a2c00, #000)';
+                initEmojis('gold');
+                initGlitter();
+            });
+        }
+
+        function toPage3() {
+            triggerFlash(() => {
+                document.getElementById('page2').style.display = 'none';
+                document.getElementById('page3').style.display = 'flex';
+                colorLayer.style.background = 'radial-gradient(circle, #2d1a00, #000)';
+                initEmojis('heart');
+            });
+        }
+
+        function initGlitter() {
+            const canvas = document.getElementById('glitterCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            const particles = [];
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 2 + 1;
+                    this.speedY = Math.random() * 1.5 + 0.5;
+                    this.color = ['#fff', '#ffd700', '#ffb347'][Math.floor(Math.random() * 3)];
+                }
+                update() { this.y += this.speedY; if (this.y > canvas.height) this.y = -10; }
+                draw() { ctx.fillStyle = this.color; ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2); ctx.fill(); }
+            }
+            for(let i=0; i<150; i++) particles.push(new Particle());
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+        initEmojis('hug');
+    </script>
+</body>
+</html>
