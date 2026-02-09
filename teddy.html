@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Teddy Day! 🧸</title>
+    <style>
+        /* Import Bubbly/Cute Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap');
+
+        :root {
+            --bg-pink: #ffe6e6;
+            --bg-peach: #fff0e6;
+            --primary: #ff8fa3;
+            --dark-text: #5c4a4a;
+            --shadow-light: #ffffff;
+            --shadow-dark: #eecaca;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--bg-pink) 0%, var(--bg-peach) 100%);
+            font-family: 'Nunito', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: var(--dark-text);
+            position: relative;
+        }
+
+        /* --- BACKGROUND CLOUDS --- */
+        .cloud {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0.6;
+            filter: blur(20px);
+            z-index: 0;
+            animation: floatCloud infinite alternate ease-in-out;
+        }
+        .c1 { width: 300px; height: 300px; top: -50px; left: -50px; animation-duration: 8s; }
+        .c2 { width: 400px; height: 400px; bottom: -100px; right: -50px; animation-duration: 12s; }
+
+        /* --- MAIN CARD --- */
+        .card-container {
+            z-index: 10;
+            perspective: 1000px;
+            text-align: center;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .plush-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            border-radius: 40px;
+            padding: 40px 30px;
+            box-shadow: 
+                20px 20px 60px var(--shadow-dark), 
+                -20px -20px 60px var(--shadow-light);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            max-width: 380px;
+            width: 90vw;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 0px #fff;
+        }
+
+        /* Teddy Image Container */
+        .teddy-frame {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: #fff;
+            overflow: hidden;
+            border: 8px solid white;
+            box-shadow: 0 10px 30px rgba(255, 143, 163, 0.3);
+            animation: breathe 3s ease-in-out infinite;
+            position: relative;
+        }
+
+        .teddy-img {
+            width: 100%; height: 100%; object-fit: cover;
+        }
+
+        .message {
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #8a6e6e;
+        }
+
+        /* --- SOFT BUTTON --- */
+        .btn-hug {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 45px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            font-family: 'Fredoka One', cursive;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 143, 163, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-hug:active {
+            transform: scale(0.95);
+            box-shadow: 0 5px 15px rgba(255, 143, 163, 0.4);
+        }
+
+        /* --- CELEBRATION LAYER --- */
+        #hug-layer {
+            display: none;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            pointer-events: none;
+        }
+
+        .big-hug-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4rem;
+            color: #ff5c7c;
+            text-shadow: 4px 4px 0px #fff;
+            animation: popUp 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            text-align: center;
+        }
+
+        /* Floating Elements */
+        .floater {
+            position: absolute;
+            bottom: -50px;
+            font-size: 2rem;
+            animation: floatUp linear forwards;
+            opacity: 0.8;
+            z-index: 15;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        @keyframes floatCloud {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(20px, 20px); }
+        }
+
+        @keyframes popUp {
+            0% { transform: scale(0); opacity: 0; }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes floatUp {
+            to { transform: translateY(-120vh) rotate(20deg); opacity: 0; }
+        }
+
+        /* Squeeze Animation Class */
+        .squeeze {
+            animation: squeezeAnim 0.4s ease-in-out;
+        }
+
+        @keyframes squeezeAnim {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1, 0.9); } /* Wide and short */
+            100% { transform: scale(1); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="cloud c1"></div>
+    <div class="cloud c2"></div>
+
+    <!-- MAIN CARD -->
+    <div class="card-container" id="mainCard">
+        <div class="plush-card">
+            <h1>Happy Teddy Day!</h1>
+            
+            <div class="teddy-frame" id="teddyFrame">
+                <!-- THEME CORRECTED IMAGE: Cute Bear holding a Red Heart -->
+                <img src="https://i.ebayimg.com/images/g/i3kAAOSwM~FjIeeB/s-l1200.jpg" alt="Cute Teddy Bear with Heart" class="teddy-img">
+            </div>
+
+            <p class="message">
+                I may not be there to hold you tight,<br>
+                but I'm sending this bear to hug you all night!
+                <br><br>
+                <span style="color: #ff5c7c;">Ready for a big squeeze?</span>
+            </p>
+
+            <button class="btn-hug" onclick="sendHug()">CATCH HUG! 🤗</button>
+        </div>
+    </div>
+
+    <!-- CELEBRATION LAYER -->
+    <div id="hug-layer">
+        <div class="big-hug-text">
+            HUG<br>SENT! 🧸
+        </div>
+    </div>
+
+    <script>
+        function sendHug() {
+            const card = document.getElementById('mainCard');
+            const teddy = document.getElementById('teddyFrame');
+            const hugLayer = document.getElementById('hug-layer');
+
+            // 1. Squeeze Animation on the Card
+            card.classList.add('squeeze');
+
+            // 2. Trigger Hearts/Bears Explosion
+            createFloaters();
+
+            // 3. Change UI State after delay
+            setTimeout(() => {
+                // Fade out card slightly
+                card.style.opacity = '0';
+                card.style.transform = 'scale(0.8)';
+                
+                hugLayer.style.display = 'flex';
+                
+                // Keep creating floaters for a while
+                let interval = setInterval(createFloaters, 300);
+                
+                // Stop after 5 seconds
+                setTimeout(() => clearInterval(interval), 5000);
+
+            }, 400);
+        }
+
+        function createFloaters() {
+            const emojis = ['🧸', '❤️', '🤗', '💖', '🐻', '☁️'];
+            const container = document.body;
+
+            for(let i=0; i<15; i++) {
+                const el = document.createElement('div');
+                el.classList.add('floater');
+                el.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                // Random position
+                el.style.left = Math.random() * 100 + 'vw';
+                
+                // Random size
+                const size = Math.random() * 2 + 1;
+                el.style.fontSize = size + 'rem';
+                
+                // Random speed
+                const duration = Math.random() * 3 + 3; // 3-6s
+                el.style.animationDuration = duration + 's';
+                
+                container.appendChild(el);
+
+                // Cleanup
+                setTimeout(() => el.remove(), duration * 1000);
+            }
+        }
+    </script>
+</body>
+</html>
